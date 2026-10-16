@@ -32,8 +32,8 @@ Aplicação web em Python que identifica objetos em imagens usando inteligência
 ### 1. Clonar o Repositório
 
 ```bash
-git clone https://github.com/USUARIO/NOME-DO-REPOSITORIO.git
-cd NOME-DO-REPOSITORIO
+git clone https://github.com/ivadcc11/VisiOn-Identificador-de-Objetos.git
+cd VisiOn-Identificador-de-Objetos
 ```
 
 ### 2. Instalar as Dependências

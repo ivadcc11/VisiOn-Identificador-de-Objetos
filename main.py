@@ -3,10 +3,6 @@ import subprocess
 import sys
 
 
-# -------------------------------------------------------------
-# LANÇADOR: permite rodar com "python main.py" ou com
-# "streamlit run main.py". Os dois funcionam.
-# -------------------------------------------------------------
 def _running_in_streamlit() -> bool:
     try:
         from streamlit.runtime.scriptrunner import get_script_run_ctx
@@ -30,48 +26,59 @@ if __name__ == "__main__" and not _running_in_streamlit():
 import streamlit as st
 from ultralytics import YOLO
 
-# -------------------------------------------------------------
-# CONFIGURAÇÃO DA PÁGINA
-# -------------------------------------------------------------
 st.set_page_config(page_title="Detector de Objetos", page_icon="🔍", layout="wide")
+
+st.markdown(
+    """
+    <style>
+    [data-testid="stAppDeployButton"],
+    [data-testid="stMainMenuItem-print"],
+    [data-testid="stMainMenuItem-autoRerun"] {
+        display: none;
+    }
+
+    [data-testid="stMainMenuItem-rerun"] [data-testid="stMainMenuItemLabel"] {
+        font-size: 0;
+    }
+
+    [data-testid="stMainMenuItem-rerun"] [data-testid="stMainMenuItemLabel"]::after {
+        content: "Recarregar";
+        font-size: 0.875rem;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
 st.title("🔍 Detector de Objetos em Python")
 st.write("Identifique objetos em imagens salvas, usando a webcam ou um stream remoto.")
 
 
-# -------------------------------------------------------------
-# MODELO
-# -------------------------------------------------------------
 @st.cache_resource
 def load_model():
-    # Baixa automaticamente o yolov8n.pt na primeira execução
     return YOLO("yolov8n.pt")
 
 
 with st.spinner("Carregando modelo YOLOv8..."):
     model = load_model()
 
-# -------------------------------------------------------------
-# BARRA LATERAL
-# -------------------------------------------------------------
 st.sidebar.header("⚙️ Configurações")
-confidence = st.sidebar.slider(
+confidence_percent = st.sidebar.slider(
     "Nível de Confiança Mínimo",
-    min_value=0.1,
-    max_value=1.0,
-    value=0.5,
-    step=0.05,
-    help="Ajuste para aceitar detecções mais ou menos precisas.",
+    min_value=0,
+    max_value=100,
+    value=50,
+    step=1,
+    format="%d%%",
+    help="Valores maiores exigem mais confiança para exibir uma detecção.",
 )
+confidence = confidence_percent / 100
 
 source_option = st.sidebar.radio(
     "Escolha a Fonte da Imagem:", ("Upload de Arquivo", "Webcam", "Acesso Remoto")
 )
 
-# -------------------------------------------------------------
-# ÁREA PRINCIPAL (as fontes serão implementadas nas próximas etapas)
-# -------------------------------------------------------------
-st.success(f"Modelo carregado com {len(model.names)} classes. Confiança mínima: {confidence:.2f}")
+st.success(f"Modelo carregado com {len(model.names)} classes. Confiança mínima: {confidence_percent}%")
 
 if source_option == "Upload de Arquivo":
     st.subheader("📁 Upload de Imagem")
