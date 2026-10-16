@@ -9,6 +9,7 @@ Aplicação web em Python que identifica objetos em imagens usando inteligência
 - **Python**: 3.10 a 3.13 (testado)
 - **[Streamlit](https://streamlit.io/)**: Interface web interativa
 - **[Ultralytics YOLOv8](https://docs.ultralytics.com/)**: Modelo de detecção de objetos
+- **[streamlit-webrtc](https://github.com/whitphx/streamlit-webrtc)**: Vídeo contínuo e gravação pela webcam
 - **OpenCV**: Leitura e processamento de imagens
 - **Pillow**: Manipulação de imagens
 - **NumPy**: Operações numéricas
@@ -18,6 +19,8 @@ Aplicação web em Python que identifica objetos em imagens usando inteligência
 - [x] Carregamento do modelo YOLOv8 com ajuste de nível de confiança
 - [x] Upload de imagem com detecção e resumo dos objetos
 - [x] Captura de foto pela webcam com detecção em tempo real
+- [x] Identificação contínua de objetos pela webcam
+- [x] Gravação de vídeo pela webcam com opção de download
 - [x] Menu de configurações (seleção de fonte de imagem, ajuste de confiança)
 - [x] Listagem detalhada de objetos detectados com contagem
 
@@ -26,6 +29,7 @@ Aplicação web em Python que identifica objetos em imagens usando inteligência
 - **Python 3.10** ou superior (testado até Python 3.13)
 - **Windows** (recomendado para desenvolvimento)
 - Conexão com a internet (para download do modelo YOLOv8 na primeira execução)
+- Webcam e navegador com permissão para acessar a câmera
 
 ## Guia de Instalação
 
@@ -66,9 +70,10 @@ A aplicação abrirá automaticamente no navegador em **http://localhost:8501**.
 ## Como Usar
 
 1. **Upload de Arquivo:** Selecione "Upload de Arquivo" na barra lateral e envie uma imagem (JPG, JPEG, PNG ou WebP)
-2. **Webcam:** Selecione "Webcam" e tire uma foto para análise
+2. **Webcam:** Na aba "Webcam", escolha "Foto" para tirar uma foto ou "Em tempo real" para identificar objetos durante o vídeo
 3. **Ajuste de Confiança:** Use o controle deslizante para ajustar o nível mínimo de confiança das detecções
 4. **Resultado:** Visualize a imagem processada e o resumo dos objetos identificados
+5. **Gravação:** Use a aba "Gravação", inicie a câmera e baixe o vídeo após encerrar a captura
 
 ## Integrantes
 
